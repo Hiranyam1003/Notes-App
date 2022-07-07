@@ -30,7 +30,9 @@ export default class CreateStory extends Component {
       fontsLoaded: false,
       previewImage: "image_1",
       light_theme: true,
-      dropdownHeight: 40
+      dropdownHeight: 40,
+      subject_choice:"Maths",
+      title: "Maths"
     };
   }
 
@@ -100,11 +102,9 @@ export default class CreateStory extends Component {
       return <AppLoading />;
     } else {
       let preview_images = {
-        image_1: require("../assets/story_image_1.png"),
-        image_2: require("../assets/story_image_2.png"),
-        image_3: require("../assets/story_image_3.png"),
-        image_4: require("../assets/story_image_4.png"),
-        image_5: require("../assets/story_image_5.png")
+        "Maths": require("../assets/story_image_1.jpg"),
+        "Physics": require("../assets/story_image_2.jpg"),
+        "Chemistry": require("../assets/story_image_3.jpg"),
       };
       return (
         <View
@@ -135,20 +135,19 @@ export default class CreateStory extends Component {
           <View style={styles.fieldsContainer}>
             <ScrollView>
               <Image
-                source={preview_images[this.state.previewImage]}
+                source={preview_images[this.state.subject_choice]}
                 style={styles.previewImage}
               ></Image>
 
-              <View style={{ height: RFValue(this.state.dropdownHeight) }}>
+                <View style={{ height: RFValue(this.state.dropdownHeight) }}>
+                
                 <DropDownPicker
                   items={[
-                    { label: "Image 1", value: "image_1" },
-                    { label: "Image 2", value: "image_2" },
-                    { label: "Image 3", value: "image_3" },
-                    { label: "Image 4", value: "image_4" },
-                    { label: "Image 5", value: "image_5" }
-                  ]}
-                  defaultValue={this.state.previewImage}
+                    { label: "Math", value: "Maths" },
+                    { label: "Physics", value: "Physics" },
+                    { label: "Chemistry", value: "Chemistry" },
+                     ]}
+                  defaultValue={this.state.subject_choice}
                   containerStyle={{
                     height: 40,
                     borderRadius: RFValue(20),
@@ -178,26 +177,15 @@ export default class CreateStory extends Component {
                       ? styles.dropdownLabelLight
                       : styles.dropdownLabel
                   }
-                  onChangeItem={item =>
-                    this.setState({
-                      previewImage: item.value
-                    })
+                  onChangeItem={item =>{
+                     this.setState({
+                      subject_choice: item.value,
+                      title: item.value
+                    })}
                   }
                 />
               </View>
               <View style={{ marginHorizontal: RFValue(10) }}>
-                <TextInput
-                  style={
-                    this.state.light_theme
-                      ? styles.inputFontLight
-                      : styles.inputFont
-                  }
-                  onChangeText={title => this.setState({ title })}
-                  placeholder={"Subject"}
-                  placeholderTextColor={
-                    this.state.light_theme ? "black" : "white"
-                  }
-                />
                 <TextInput
                   style={[
                     this.state.light_theme

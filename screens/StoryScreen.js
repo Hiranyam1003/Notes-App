@@ -147,7 +147,7 @@ is_liked:false
               }
             >
               <Image
-                source={require("../assets/story_image_1.png")}
+                source={require("../assets/story_image_1.jpg")}
                 style={styles.image}
               ></Image>
               <View style={styles.dataContainer}>

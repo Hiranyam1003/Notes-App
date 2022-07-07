@@ -99,7 +99,7 @@ export default class Profile extends Component {
                     : styles.appTitleText
                 }
               >
-                Storytelling App
+                Notes App
               </Text>
             </View>
           </View>

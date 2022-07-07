@@ -8,6 +8,7 @@ import {
   StatusBar,
   Image
 } from "react-native";
+import DropDownPicker from "react-native-dropdown-picker";
 import { RFValue } from "react-native-responsive-fontsize";
 import StoryCard from "./StoryCard";
 
@@ -28,7 +29,10 @@ export default class Feed extends Component {
     this.state = {
       fontsLoaded: false,
       light_theme: true,
-      stories: []
+      stories: [],
+      dropdownHeight: 40,
+      subject_choice:"Maths",
+      title: "Maths"
     };
   }
 
@@ -85,6 +89,10 @@ export default class Feed extends Component {
 
   keyExtractor = (item, index) => index.toString();
 
+  filteredStories =(subject)=>{
+    console.log(this.state.stories)
+  }
+
   render() {
     if (!this.state.fontsLoaded) {
       return <AppLoading />;
@@ -129,6 +137,55 @@ export default class Feed extends Component {
             </View>
           ) : (
             <View style={styles.cardContainer}>
+               <View style={{ height: RFValue(this.state.dropdownHeight) }}>
+                
+                <DropDownPicker
+                  items={[
+                    { label: "Math", value: "Maths" },
+                    { label: "Physics", value: "Physics" },
+                    { label: "Chemistry", value: "Chemistry" },
+                     ]}
+                  defaultValue={this.state.subject_choice}
+                  containerStyle={{
+                    height: 40,
+                    borderRadius: RFValue(20),
+                    marginBottom: RFValue(20),
+                    marginHorizontal: RFValue(10)
+                  }}
+                  onOpen={() => {
+                    this.setState({ dropdownHeight: 170 });
+                  }}
+                  onClose={() => {
+                    this.setState({ dropdownHeight: 40 });
+                  }}
+                  style={{ backgroundColor: "transparent" }}
+                  itemStyle={{
+                    justifyContent: "flex-start"
+                  }}
+                  dropDownStyle={{
+                    backgroundColor: this.state.light_theme ? "#eee" : "#2f345d"
+                  }}
+                  labelStyle={
+                    this.state.light_theme
+                      ? styles.dropdownLabelLight
+                      : styles.dropdownLabel
+                  }
+                  arrowStyle={
+                    this.state.light_theme
+                      ? styles.dropdownLabelLight
+                      : styles.dropdownLabel
+                  }
+                  onChangeItem={item =>{
+                     this.setState({
+                      subject_choice: item.value,
+                      title: item.value
+                     })
+                     this.filteredStories(this.state.subject_choice)
+                    }
+
+                  }
+                />
+              </View>
               <FlatList
                 keyExtractor={this.keyExtractor}
                 data={this.state.stories}
@@ -199,5 +256,13 @@ const styles = StyleSheet.create({
     color: "white",
     fontSize: RFValue(40),
     fontFamily: "Bubblegum-Sans"
-  }
+  },
+  dropdownLabel: {
+    color: "white",
+    fontFamily: "Bubblegum-Sans"
+  },
+  dropdownLabelLight: {
+    color: "black",
+    fontFamily: "Bubblegum-Sans"
+  },
 });

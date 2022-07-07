@@ -88,9 +88,9 @@ is_liked:false
       return <AppLoading />;
     } else {
       let images = {
-        image_1: require("../assets/story_image_1.png"),
-        image_2: require("../assets/story_image_2.png"),
-        image_3: require("../assets/story_image_3.png"),
+        image_1: require("../assets/story_image_1.jpg"),
+        image_2: require("../assets/story_image_2.jpg"),
+        image_3: require("../assets/story_image_3.jpg"),
         image_4: require("../assets/story_image_4.png"),
         image_5: require("../assets/story_image_5.png")
       };
@@ -99,7 +99,7 @@ is_liked:false
           style={styles.container}
           onPress={() =>
             this.props.navigation.navigate("StoryScreen", {
-              story: story,
+              story: story, 
               story_id:this.state.story_id
             })
           }

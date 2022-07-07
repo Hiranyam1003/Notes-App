@@ -45,6 +45,11 @@ export default class DrawerNavigator extends Component {
           options={{ unmountOnBlur: true }}
         />
         <Drawer.Screen
+          name="Maths"
+          component={StackNavigator}
+          options={{ unmountOnBlur: true }}
+        />
+        <Drawer.Screen
           name="Profile"
           component={Profile}
           options={{ unmountOnBlur: true }}
