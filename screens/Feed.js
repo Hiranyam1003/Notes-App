@@ -31,8 +31,10 @@ export default class Feed extends Component {
       light_theme: true,
       stories: [],
       dropdownHeight: 40,
-      subject_choice:"Maths",
-      title: "Maths"
+      subject_choice:"",
+      storyFilter:[],
+      title: ""
+
     };
   }
 
@@ -91,6 +93,17 @@ export default class Feed extends Component {
 
   filteredStories =(subject)=>{
     console.log(this.state.stories)
+    this.setState({storyFilter:[]})
+    var a=[]
+    console.log(subject)
+    this.state.stories.forEach(function(item){
+      if(item.value.subject == subject){
+        a.push({value:item})
+        console.log("error" + item.value.subject  )
+      }
+    })
+    console.log( "hello" + Object.keys(a))
+    this.setState({storyFilter:a})
   }
 
   render() {
@@ -180,16 +193,19 @@ export default class Feed extends Component {
                       subject_choice: item.value,
                       title: item.value
                      })
-                     this.filteredStories(this.state.subject_choice)
+                     console.log("alert" + item.value)
+                     this.filteredStories(item.value)
                     }
 
                   }
+                  
                 />
               </View>
               <FlatList
                 keyExtractor={this.keyExtractor}
-                data={this.state.stories}
+                data={this.state.storyFilter}
                 renderItem={this.renderItem}
+                
               />
             </View>
           )}
